@@ -4,7 +4,7 @@ import { MenuItem, FormControl, Select, CardContent} from '@material-ui/core';
 import InfoBox from './InfoBox';
 import Map from './Map'
 import Table from './Table'
-import { SortByCases,SortByName } from './Util';
+import { SortByCases,SortByName , prettyPrintStat } from './Util';
 import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import LineGraph from './LineGraph'
@@ -18,8 +18,12 @@ function App() {
   const [casesComparator, setCasesComparator] = useState(0);
   const [countryComparator, setCountryComparator] = useState(0);
   const [graphCountry,setGraphCountry] = useState('all');
-  const [mapCenter,setMapCenter] = useState({lat: 41.257017,lng: 29.077524}); 
-  const [mapZoom, setMapZoom] = useState(5);
+  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
+  const [mapZoom, setMapZoom] = useState(3);
+  const [mapCountries, setMapCountries] = useState([]);
+  const [casesType, setCasesType] = useState('cases');
+  const [countryCode, setCountryCode] = useState('World');
+
 
   useEffect(() => {
     fetch('https://disease.sh/v3/covid-19/all')
@@ -41,24 +45,37 @@ function App() {
           value: country.countryInfo.iso2,
         }));
         setCountries(country_name);
+        setMapCountries(data);
     });
   };
+
 getCountriesData();
   },[]);
 
-const onCountryChange = async (event) => {
-  const countryname = event.target.value;
-  const url = countryname === 'World' ? 'https://disease.sh/v3/covid-19/all' : `https://disease.sh/v3/covid-19/countries/${countryname}`; 
-  await fetch(url)
-  .then(response => response.json())
-  .then((data) => {
-    setGraphCountry(countryname);
-    setCountry(countryname);
-    setCountryInfo(data);
-    setMapCenter([data.countryInfo.lat,data.countryInfo.long]);
-    setMapZoom(4);
-  });
-}
+
+  useEffect(() => {
+    const change_data = async() => {
+      const url =countryCode === "World"
+        ? "https://disease.sh/v3/covid-19/all"
+        : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
+        await fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            setCountry(countryCode);
+            setGraphCountry(countryCode); 
+            setCountryInfo(data); 
+            const lat_long = countryCode==='World' ? [34.80746,-40.4796 ] : [data.countryInfo.lat, data.countryInfo.long];
+            setMapCenter(lat_long);
+            setMapZoom(4);
+          });
+      };
+      
+      change_data();
+  },[countryCode]);
+
+  const onCountryChange = (e) => {
+    setCountryCode(e.target.value);
+  };
 
 const sortByCountryName = () => {
   setTableData(SortByName(tableData,countryComparator));
@@ -69,7 +86,7 @@ const sortByCountryCases = () => {
   setTableData(SortByCases(tableData,casesComparator)); 
   setCasesComparator(!casesComparator)
 }
-
+  
   return (
     <div className="app">
         <div className="app__left">
@@ -86,12 +103,12 @@ const sortByCountryCases = () => {
           </div>
 
           <div className="app__stats">
-                <InfoBox title="CoronaVirus Cases" cases={countryInfo.todayCases} total={countryInfo.cases} />
-                <InfoBox title="Recovered" cases={countryInfo.todayRecovered} total={countryInfo.recovered} />
-                <InfoBox title="Deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths} />
+                <InfoBox onClick={(e) => setCasesType('cases')} title="CoronaVirus Cases" cases={prettyPrintStat(countryInfo.todayCases)} total={prettyPrintStat(countryInfo.cases)} />
+                <InfoBox onClick={(e) => setCasesType('recovered')} title="Recovered" cases={prettyPrintStat(countryInfo.todayRecovered)} total={prettyPrintStat(countryInfo.recovered)} />
+                <InfoBox onClick={(e) => setCasesType('deaths')} title="Deaths" cases={prettyPrintStat(countryInfo.todayDeaths)} total={prettyPrintStat(countryInfo.deaths)} />
           </div> 
 
-          <Map center={mapCenter} zoom={mapZoom}/>
+          <Map casesType={casesType} countries={mapCountries} center={mapCenter} zoom={mapZoom}/>
 
         </div>
         <div className="app__right">
@@ -120,3 +137,6 @@ const sortByCountryCases = () => {
 }
 
 export default App;
+
+// two country comparison graph
+// heal ratio

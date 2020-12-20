@@ -63,7 +63,8 @@ function LineGraph({caseType = 'cases',countryName='all'}) {
     useEffect(() => 
     {
         const buildChartData = (data, caseType = 'cases') => {
-            if(countryName!=='all')data=data.timeline;
+            // if(countryName==='World')countryName = 'all';
+            if(countryName!=='all' && countryName!=='World')data=data.timeline;
             let chartData = []
             let lastDataPoint;
             for(let date in data.cases) {
@@ -82,7 +83,7 @@ function LineGraph({caseType = 'cases',countryName='all'}) {
         };
         const fetchData = async () => 
         {
-            await fetch(`${countryName==='all'?'https://disease.sh/v3/covid-19/historical/all':`https://disease.sh/v3/covid-19/historical/${countryName}`}`)
+            await fetch(`${countryName==='World' || countryName==='all'?'https://disease.sh/v3/covid-19/historical/all':`https://disease.sh/v3/covid-19/historical/${countryName}`}`)
             .then((response) => response.json())
             .then(data => {
                 const chartData = buildChartData(data);
@@ -91,9 +92,8 @@ function LineGraph({caseType = 'cases',countryName='all'}) {
         };
         fetchData();
     },[countryName]);
-
     return (
-        <div>
+        <div Style="padding-top:20px">
             {
                 data?.length > 0 && (
                 <Line options = {options} 

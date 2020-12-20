@@ -2,6 +2,7 @@ import React from 'react'
 import { Avatar } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import './Table.css'
+import numeral from 'numeral'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,7 +31,7 @@ function Table({countries}) {
                 countries.map(({country,cases,countryInfo}) =>(
                     <tr className={classes.root}>
                         <td><Avatar alt="country flag" src={countryInfo.flag} className={classes.small} /> <h3>{country}</h3></td>
-                        <td><h3>{cases}</h3></td>
+                        <td><h3>{numeral(cases).format("0,0")}</h3></td>
                     </tr>
                 ))
             }

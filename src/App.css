@@ -33,3 +33,12 @@ body {
     flex-direction: column;
   }
 }
+
+.app__right {
+  display: flex;
+  flex-direction: column;
+}
+
+.LineGraph {
+  padding-top: 10px;
+}
