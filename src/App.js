@@ -23,7 +23,8 @@ function App() {
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState('cases');
   const [countryCode, setCountryCode] = useState('World');
-
+  const countriesForGraphLeft = ['USA','India','Brazil','Russia','France']
+  const countriesForGraphRight = ['UK','Turkey','Italy','Spain','Argentina']
 
   useEffect(() => {
     fetch('https://disease.sh/v3/covid-19/all')
@@ -53,6 +54,7 @@ getCountriesData();
   },[]);
 
 
+
   useEffect(() => {
     const change_data = async() => {
       const url =countryCode === "World"
@@ -62,14 +64,14 @@ getCountriesData();
           .then((response) => response.json())
           .then((data) => {
             setCountry(countryCode);
-            setGraphCountry(countryCode); 
+            setGraphCountry(countryCode);
             setCountryInfo(data); 
             const lat_long = countryCode==='World' ? [34.80746,-40.4796 ] : [data.countryInfo.lat, data.countryInfo.long];
             setMapCenter(lat_long);
             setMapZoom(4);
           });
       };
-      
+
       change_data();
   },[countryCode]);
 
@@ -86,8 +88,9 @@ const sortByCountryCases = () => {
   setTableData(SortByCases(tableData,casesComparator)); 
   setCasesComparator(!casesComparator)
 }
-  
+
   return (
+  <div>
     <div className="app">
         <div className="app__left">
           <div className="app__header">
@@ -129,10 +132,25 @@ const sortByCountryCases = () => {
                     </td>
                   </tr>
                   <Table countries={tableData} />
-                  <LineGraph countryName={graphCountry} />
+                  <div Style="flex: 1; border-radius:20px; cursor: pointer; box-shadow: 0 0 8px -4px rgba(0,0,0,0.5); padding: 5px; margin-top: 5px;">
+                    <LineGraph countryName={graphCountry} />
+                  </div>
                 </CardContent>
         </div>
-    </div>
+      </div>
+      <div className="app__down">
+            <div className="app_downLeft">
+            {
+              countriesForGraphLeft.map((country) => (<div className="Line_Graph"><LineGraph countryName={country} showDetails='1' /></div>))
+            }
+            </div>
+            <div className="app_downRight">
+            {
+              countriesForGraphRight.map((country) => (<div className="Line_Graph"><LineGraph countryName={country} showDetails='1' /></div>))
+            }
+            </div>
+        </div>
+  </div>
   );
 }
 

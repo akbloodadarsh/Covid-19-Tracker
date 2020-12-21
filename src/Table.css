@@ -3,7 +3,9 @@
     margin-bottom:20px;
     padding-bottom: 20px;
     overflow: scroll;
+    box-shadow: 0 0 8px -4px rgba(0,0,0,0.5);
     height: 500px;
+    border-radius:20px;
     overflow-x: hidden;
     color: #6a5d5d;
 }

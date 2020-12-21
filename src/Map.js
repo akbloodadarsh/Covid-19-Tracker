@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{memo}from 'react';
 import { MapContainer as LeafletMap,TileLayer} from "react-leaflet";
 import './Map.css';
 import {showDataOnMap} from './Util'
@@ -17,4 +17,4 @@ function Map({countries,casesType, center,zoom}) {
     );
 }
 
-export default Map;
+export default memo(Map);

@@ -1,5 +1,6 @@
 .infoBox {
     flex: 1;
+    border-radius:20px;
     cursor: pointer;
 }
 
@@ -30,5 +31,5 @@
   }
 
   .infoBox__deaths:hover {
-    border-top: 10px solid orange;
+    border-top: 10px solid #c02739;
   }
