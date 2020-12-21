@@ -116,7 +116,7 @@ function LineGraph({countryName='all', showDetails='0'}) {
     },[countryName]);
     return (
         <div>
-            {showDetails==='1' && <h1>{countryName}</h1>}
+            {showDetails==='1' && <h1 Style="padding-bottom=10px;">{countryName}</h1>}
             {
                 data_cases?.length > 0 && data_recovered?.length > 0 && data_deaths?.length > 0 && (
                 <Line options = {options} 

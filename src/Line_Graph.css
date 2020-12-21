@@ -1,0 +1,20 @@
+.Line_Graph {
+    text-align: center;
+    flex: 1;
+    border-radius:20px;
+    cursor: pointer;
+    max-height: 500px;
+    box-shadow: 0 0 8px -4px rgba(0,0,0,0.5);
+    padding: 50px; 
+    margin: 80px;
+  }
+
+  @media (max-width: 990px) {
+    .app {
+      flex-direction: column;
+    }
+    .Line_Graph {
+      padding: 0px;
+      margin: 40px;
+    }
+  }

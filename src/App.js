@@ -3,12 +3,14 @@ import './App.css';
 import { MenuItem, FormControl, Select, CardContent} from '@material-ui/core';
 import InfoBox from './InfoBox';
 import Map from './Map'
+import './Map.css'
 import Table from './Table'
 import { SortByCases,SortByName , prettyPrintStat } from './Util';
 import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import LineGraph from './LineGraph'
 import 'leaflet/dist/leaflet.css';
+import './Line_Graph.css';
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -111,7 +113,7 @@ const sortByCountryCases = () => {
                 <InfoBox onClick={(e) => setCasesType('deaths')} title="Deaths" cases={prettyPrintStat(countryInfo.todayDeaths)} total={prettyPrintStat(countryInfo.deaths)} />
           </div> 
 
-          <Map casesType={casesType} countries={mapCountries} center={mapCenter} zoom={mapZoom}/>
+          <Map casesType={casesType} countries={mapCountries} location={mapCenter} zoom={mapZoom}/>
 
         </div>
         <div className="app__right">
@@ -155,6 +157,3 @@ const sortByCountryCases = () => {
 }
 
 export default App;
-
-// two country comparison graph
-// heal ratio
