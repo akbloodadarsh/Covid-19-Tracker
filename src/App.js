@@ -25,8 +25,7 @@ function App() {
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState('cases');
   const [countryCode, setCountryCode] = useState('World');
-  const countriesForGraphLeft = ['USA','India','Brazil','Russia','France']
-  const countriesForGraphRight = ['UK','Turkey','Italy','Spain','Argentina']
+  const countriesForGraph = ['UK','Turkey','Italy','Spain','Argentina','USA','India','Brazil','Russia','France'];
 
   useEffect(() => {
     fetch('https://disease.sh/v3/covid-19/all')
@@ -93,15 +92,16 @@ const sortByCountryCases = () => {
 
   return (
   <div>
+    <h1 Style="text-align:center;">COVID-Reporter</h1>
     <div className="app">
         <div className="app__left">
           <div className="app__header">
             <h1>Daily Change</h1>
             <FormControl className="app_dropdown">
               <Select variant="outlined" value={country} onChange={onCountryChange}>
-                <MenuItem value="World">World</MenuItem>
+                <MenuItem key='World' value="World">World</MenuItem>
                 {
-                  countries.map((country) => (<MenuItem value={country.value}>{country.name}</MenuItem>))
+                  countries.map((country) => (<MenuItem key={country.id} value={country.value}>{country.name}</MenuItem>))
                 }
               </Select>
             </FormControl>
@@ -141,17 +141,10 @@ const sortByCountryCases = () => {
         </div>
       </div>
       <div className="app__down">
-            <div className="app_downLeft">
-            {
-              countriesForGraphLeft.map((country) => (<div className="Line_Graph"><LineGraph countryName={country} showDetails='1' /></div>))
-            }
-            </div>
-            <div className="app_downRight">
-            {
-              countriesForGraphRight.map((country) => (<div className="Line_Graph"><LineGraph countryName={country} showDetails='1' /></div>))
-            }
-            </div>
-        </div>
+        {
+          countriesForGraph.map((country) => (<div className="Line_Graph"><LineGraph countryName={country} showDetails='1' /></div>))
+        }
+      </div>
   </div>
   );
 }

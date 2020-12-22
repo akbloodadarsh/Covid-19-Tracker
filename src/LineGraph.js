@@ -63,6 +63,7 @@ function LineGraph({countryName='all', showDetails='0'}) {
     const [data_deaths, setDataDeaths] = useState({});
     const [data_recovered, setDataRecovered] = useState({});
     const [countryDetails, setCountryDetails] = useState({});
+    const [countryFlag,setCountryFlag] = useState('');
 
     useEffect(() => 
     {
@@ -107,16 +108,23 @@ function LineGraph({countryName='all', showDetails='0'}) {
             await fetch(`${countryName==='World' || countryName==='all'?'https://disease.sh/v3/covid-19/all':`https://disease.sh/v3/covid-19/countries/${countryName}`}`)
             .then((response) => response.json())
             .then(data => {
+                try {
+                    if(!data.countryInfo.flag)return;
+                }
+                catch (e) 
+                {
+                    return;
+                }
+                setCountryFlag(data.countryInfo.flag);
                 setCountryDetails(data);      
             });
         };
         fetchCountryDetails();
-        console.log(countryDetails);
         fetchData();
     },[countryName]);
     return (
         <div>
-            {showDetails==='1' && <h1 Style="padding-bottom=10px;">{countryName}</h1>}
+            {showDetails==='1' && <h1 Style="padding-bottom=10px;margin-top:10px;"><img src={countryFlag} Style="width:30px;height:30px;border-radius: 20px;padding:0px; "></img> {countryName}</h1>}
             {
                 data_cases?.length > 0 && data_recovered?.length > 0 && data_deaths?.length > 0 && (
                 <Line options = {options} 
