@@ -145,6 +145,7 @@ const sortByCountryCases = () => {
           countriesForGraph.map((country) => (<div key={country} className="Line_Graph card_box"><LineGraph key={country} countryName={country} showDetails='1' /></div>))
         }
       </div>
+      <p id="red_text" Style="padding-bottom: 5px;text-align:center;">Note: Reload the page if graph is showing incorrectly!</p>
   </div>
   );
 }
