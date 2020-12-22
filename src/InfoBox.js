@@ -4,7 +4,7 @@ import './InfoBox.css'
 
 function InfoBox({title,cases , total, ...props}) {
     return (
-        <Card onClick={props.onClick} className={`infoBox && ${title==='Recovered' ? 'infoBox__recovered' : title==='Deaths' ? 'infoBox__deaths' : ''}`}>
+        <Card onClick={props.onClick} className={`infoBox card_box && ${title==='Recovered' ? 'infoBox__recovered' : title==='Deaths' ? 'infoBox__deaths' : ''}`}>
             <CardContent>
                 <Typography className="infoBox__title" color="textSecondary">
                     {title}

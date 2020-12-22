@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme: Theme) =>
 function Table({countries}) {
     const classes = useStyles();
     return (
-        <div className="table">
+        <div className="table card_box">
             {
                 countries.map(({country,cases,countryInfo}) =>(
-                    <tr className={classes.root}>
-                        <td><Avatar alt="country flag" src={countryInfo.flag} className={classes.small} /> <h3>{country}</h3></td>
+                    <tr key={country} className={classes.root}>
+                        <td><Avatar key={country} alt="country flag" src={countryInfo.flag} className={classes.small} /> <h3>{country}</h3></td>
                         <td><h3>{numeral(cases).format("0,0")}</h3></td>
                     </tr>
                 ))

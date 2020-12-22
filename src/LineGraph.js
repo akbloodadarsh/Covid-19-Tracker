@@ -62,13 +62,12 @@ function LineGraph({countryName='all', showDetails='0'}) {
     const [data_cases, setDataCases] = useState({});
     const [data_deaths, setDataDeaths] = useState({});
     const [data_recovered, setDataRecovered] = useState({});
-    const [countryDetails, setCountryDetails] = useState({});
+    // const [countryDetails, setCountryDetails] = useState({});
     const [countryFlag,setCountryFlag] = useState('');
 
     useEffect(() => 
     {
         const buildChartData = (data, caseType) => {
-            // if(countryName==='World')countryName = 'all';
             if(countryName!=='all' && countryName!=='World')data=data.timeline;
             try {
                 if(!data.cases)return;
@@ -116,7 +115,7 @@ function LineGraph({countryName='all', showDetails='0'}) {
                     return;
                 }
                 setCountryFlag(data.countryInfo.flag);
-                setCountryDetails(data);      
+                // setCountryDetails(data);      
             });
         };
         fetchCountryDetails();
@@ -124,7 +123,8 @@ function LineGraph({countryName='all', showDetails='0'}) {
     },[countryName]);
     return (
         <div>
-            {showDetails==='1' && <h1 Style="padding-bottom=10px;margin-top:10px;"><img src={countryFlag} Style="width:30px;height:30px;border-radius: 20px;padding:0px; "></img> {countryName}</h1>}
+            {
+            showDetails==='1' && <h1 Style="padding-bottom=10px;margin-top:10px;"><img src={countryFlag} alt="" Style="width:30px;height:30px;border-radius: 20px;padding:0px; "></img> {countryName}</h1>}
             {
                 data_cases?.length > 0 && data_recovered?.length > 0 && data_deaths?.length > 0 && (
                 <Line options = {options} 
@@ -149,28 +149,31 @@ function LineGraph({countryName='all', showDetails='0'}) {
                 }
                 } />)
             }
-            {/* {showDetails==='0' && <div>
-                <p>Active : {countryDetails.active}</p>
-                <p>Active Per One Million : {countryDetails.activePerOneMillion}</p>
-                <p>Cases : {countryDetails.cases}</p>
-                <p>Cases Per One Million : {countryDetails.casesPerOneMillion}</p>
-                <p>Continent : {countryDetails.continent}</p>
-                <p>Country : {countryDetails.country}</p>
-                <p>Critical : {countryDetails.critical}</p>
-                <p>Critical Per One Million : {countryDetails.criticalPerOneMillion}</p>
-                <p>Deaths : {countryDetails.deaths}</p>
-                <p>Deaths Per One Million : {countryDetails.deathsPerOneMillion}</p>
-                <p>One Case Per People : {countryDetails.oneCasePerPeople}</p>
-                <p>One Death Per People : {countryDetails.oneDeathPerPeople}</p>
-                <p>One Test Per People : {countryDetails.oneTestPerPeople}</p>
-                <p>Population : {countryDetails.population}</p>
-                <p>Recovered : {countryDetails.recovered}</p>
-                <p>Recovered Per One Million : {countryDetails.recoveredPerOneMillion}</p>
-                <p>Tests : {countryDetails.tests}</p>
-                <p>Tests Per One Million : {countryDetails.testsPerOneMillion}</p>
-                <p>Today Cases : {countryDetails.todayCases}</p>
-                <p>Today Deaths : {countryDetails.todayDeaths}</p>
-                <p>Today Recovered : {countryDetails.todayRecovered}</p>
+            
+            {/* {
+                showDetails==='1' && 
+                <div className="tooltiptext">
+                    <p>Active : {countryDetails.active}</p>
+                    <p>Active Per One Million : {countryDetails.activePerOneMillion}</p>
+                    <p>Cases : {countryDetails.cases}</p>
+                    <p>Cases Per One Million : {countryDetails.casesPerOneMillion}</p>
+                    <p>Continent : {countryDetails.continent}</p>
+                    <p>Country : {countryDetails.country}</p>
+                    <p>Critical : {countryDetails.critical}</p>
+                    <p>Critical Per One Million : {countryDetails.criticalPerOneMillion}</p>
+                    <p>Deaths : {countryDetails.deaths}</p>
+                    <p>Deaths Per One Million : {countryDetails.deathsPerOneMillion}</p>
+                    <p>One Case Per People : {countryDetails.oneCasePerPeople}</p>
+                    <p>One Death Per People : {countryDetails.oneDeathPerPeople}</p>
+                    <p>One Test Per People : {countryDetails.oneTestPerPeople}</p>
+                    <p>Population : {countryDetails.population}</p>
+                    <p>Recovered : {countryDetails.recovered}</p>
+                    <p>Recovered Per One Million : {countryDetails.recoveredPerOneMillion}</p>
+                    <p>Tests : {countryDetails.tests}</p>
+                    <p>Tests Per One Million : {countryDetails.testsPerOneMillion}</p>
+                    <p>Today Cases : {countryDetails.todayCases}</p>
+                    <p>Today Deaths : {countryDetails.todayDeaths}</p>
+                    <p>Today Recovered : {countryDetails.todayRecovered}</p>
                 </div>
             } */}
                  

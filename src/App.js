@@ -92,13 +92,13 @@ const sortByCountryCases = () => {
 
   return (
   <div>
-    <h1 Style="text-align:center;">COVID-Reporter</h1>
+    <span Style="text-align:center;"><h1 className="headers" Style="padding-top:1vh;font-family:proxima-nova;"><span id="red_text">COVID</span>-REPORTER</h1></span>
     <div className="app">
-        <div className="app__left">
+        <div className="app__left card_box">
           <div className="app__header">
-            <h1>Daily Change</h1>
+            <h1 className="headers"><span id="red_text">DAILY</span> CHANGE</h1>
             <FormControl className="app_dropdown">
-              <Select variant="outlined" value={country} onChange={onCountryChange}>
+              <Select key={country} variant="outlined" value={country} onChange={onCountryChange}>
                 <MenuItem key='World' value="World">World</MenuItem>
                 {
                   countries.map((country) => (<MenuItem key={country.id} value={country.value}>{country.name}</MenuItem>))
@@ -108,17 +108,17 @@ const sortByCountryCases = () => {
           </div>
 
           <div className="app__stats">
-                <InfoBox onClick={(e) => setCasesType('cases')} title="CoronaVirus Cases" cases={prettyPrintStat(countryInfo.todayCases)} total={prettyPrintStat(countryInfo.cases)} />
-                <InfoBox onClick={(e) => setCasesType('recovered')} title="Recovered" cases={prettyPrintStat(countryInfo.todayRecovered)} total={prettyPrintStat(countryInfo.recovered)} />
-                <InfoBox onClick={(e) => setCasesType('deaths')} title="Deaths" cases={prettyPrintStat(countryInfo.todayDeaths)} total={prettyPrintStat(countryInfo.deaths)} />
+                <InfoBox key="CoronaVirus Cases" onClick={(e) => setCasesType('cases')} title="CoronaVirus Cases" cases={prettyPrintStat(countryInfo.todayCases)} total={prettyPrintStat(countryInfo.cases)} />
+                <InfoBox key="Recovered" onClick={(e) => setCasesType('recovered')} title="Recovered" cases={prettyPrintStat(countryInfo.todayRecovered)} total={prettyPrintStat(countryInfo.recovered)} />
+                <InfoBox key="Deaths" onClick={(e) => setCasesType('deaths')} title="Deaths" cases={prettyPrintStat(countryInfo.todayDeaths)} total={prettyPrintStat(countryInfo.deaths)} />
           </div> 
 
-          <Map casesType={casesType} countries={mapCountries} location={mapCenter} zoom={mapZoom}/>
+          <Map key="World Map" casesType={casesType} countries={mapCountries} location={mapCenter} zoom={mapZoom}/>
 
         </div>
-        <div className="app__right">
+        <div className="app__right card_box">
                 <CardContent>
-                  <h1 Style="padding-bottom:20px">Cases Overview</h1>
+                  <h1  className="headers" Style="margin-bottom:20px;"><span id="red_text">CASES</span> OVERVIEW</h1>
                   <tr>
                     <td>
                       <div class="tooltip">
@@ -134,15 +134,15 @@ const sortByCountryCases = () => {
                     </td>
                   </tr>
                   <Table countries={tableData} />
-                  <div Style="flex: 1; border-radius:20px; cursor: pointer; box-shadow: 0 0 8px -4px rgba(0,0,0,0.5); padding: 5px; margin-top: 5px;">
-                    <LineGraph countryName={graphCountry} />
+                  <div className="card_box" Style="flex: 1; padding: 5px; margin-top: 5px;">
+                    <LineGraph className="card_box" key="Line Graph" countryName={graphCountry} />
                   </div>
                 </CardContent>
         </div>
       </div>
-      <div className="app__down">
+      <div className="app__down card_box">
         {
-          countriesForGraph.map((country) => (<div className="Line_Graph"><LineGraph countryName={country} showDetails='1' /></div>))
+          countriesForGraph.map((country) => (<div key={country} className="Line_Graph card_box"><LineGraph key={country} countryName={country} showDetails='1' /></div>))
         }
       </div>
   </div>

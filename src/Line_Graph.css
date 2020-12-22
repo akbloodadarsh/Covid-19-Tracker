@@ -1,4 +1,6 @@
 .Line_Graph {
+    display: flex;
+    flex-direction: column;
     text-align: center;
     flex: 1;
     border-radius:20px;
@@ -10,7 +12,6 @@
 
   @media (max-width: 990px) {
     .Line_Graph {
-    height: 300;
-      height: 150px; width: 293px;
+      margin: 5vw;
     }
   }

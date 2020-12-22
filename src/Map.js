@@ -7,7 +7,7 @@ import "./Map.css";
 
 function Map({ countries, casesType, location, zoom }) {
     return (
-        <div className="map">
+        <div className="map card_box">
             <MapContainer center={location} zoom={zoom} scrollWheelZoom={true}>
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
