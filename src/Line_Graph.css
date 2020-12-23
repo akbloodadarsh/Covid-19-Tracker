@@ -1,17 +1,93 @@
 .Line_Graph {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     text-align: center;
+    position: relative;
     flex: 1;
     border-radius:20px;
     cursor: pointer;
-    max-height: 500px;
+    height: 30vh;
+    padding: 1vh;
+    padding-bottom: 50px;
     box-shadow: 0 0 8px -4px rgba(0,0,0,0.5);
     margin: 1.5vw;
+    opacity: 1;
+    transition:all 1.5s;
   }
+.Line_Graph:hover {
+  background: #E6EBFE;
+  transition:Line_Graph_Graphs_Flag 1.5s;
+}
+.Line_Graph:hover .Line_Graph_Graphs_Flag {
+  opacity:0;
+  transition:all 1.5s;
+}
+.Line_Graph:hover .Line_Graph_Graphs_Flag:hover {
+  opacity:0;
+}
+
+.Line_Graph:hover .Line_Graph_Graphs_Header {
+  opacity: 0;
+  transition:all 1.5s;
+}
+.Line_Graph:hover .Line_Graph_Graphs_Header:hover {
+  opacity: 0;
+}
 
   @media (max-width: 990px) {
     .Line_Graph {
       margin: 5vw;
     }
+  }
+
+  .Line_Graph_Graphs {
+    flex: 0.5;
+    flex-direction: column;
+    display: flex;
+  }
+
+
+  .Line_Graph_Overlay {
+    background:#E6EBFE;
+    display: flex;
+    border-radius:20px;
+    color: #077AFB;
+    font-weight: bold;
+    margin-top:2vh;
+    margin-bottom:2vh;
+    padding: 2vw;
+    width: 91%;
+    height: 88%;
+    padding: 1vh;
+    font-family: 'Quicksand',sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1.5s;
+  }
+  .Line_Graph_Overlay > * {
+    transform: translateY(120px);
+    transition: transform 1.5s;
+  }
+  .Line_Graph_Overlay:hover > * {
+    transform: translateY(0px);
+    padding-bottom: 1vh;
+    margin-bottom: 1vh;
+  }
+  .Line_Graph_Overlay:hover {
+    padding-top: 1vh;
+    opacity: 1;
+  }
+  .Line_Graph_Overlay:hover:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+  .Line_Graph_Description {
+    align-items: center;
+    text-align: center;
+    justify-content: center;
   }

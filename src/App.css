@@ -29,6 +29,7 @@
   box-shadow: 0 0 8px -4px rgba(0,0,0,0.5);
   transition: box-shadow 1.5s;
   border-radius:20px;
+  justify-content: center;
 }
 .card_box:hover {
   box-shadow: 0 0 32px 3px black;
@@ -72,11 +73,13 @@ body {
 }
 
 .app__down {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   margin-left : 4vw;
   margin-right : 4vw;
   justify-content: center;
+
   margin-bottom: 20px;
 }
 

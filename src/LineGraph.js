@@ -62,7 +62,7 @@ function LineGraph({countryName='all', showDetails='0'}) {
     const [data_cases, setDataCases] = useState({});
     const [data_deaths, setDataDeaths] = useState({});
     const [data_recovered, setDataRecovered] = useState({});
-    // const [countryDetails, setCountryDetails] = useState({});
+    const [countryDetails, setCountryDetails] = useState({});
     const [countryFlag,setCountryFlag] = useState('');
 
     useEffect(() => 
@@ -115,16 +115,16 @@ function LineGraph({countryName='all', showDetails='0'}) {
                     return;
                 }
                 setCountryFlag(data.countryInfo.flag);
-                // setCountryDetails(data);      
+                setCountryDetails(data);      
             });
         };
         fetchCountryDetails();
         fetchData();
     },[countryName]);
-    return (
-        <div>
+    return (<>
+        <div className="Line_Graph_Graphs">
             {
-            showDetails==='1' && <h1 Style="padding-bottom=10px;margin-top:10px;"><img src={countryFlag} alt="" Style="width:30px;height:30px;border-radius: 20px;padding:0px; "></img> {countryName}</h1>}
+            showDetails==='1' && <h1 className="Line_Graph_Graphs_Header" Style="padding-bottom=10px;margin-top:10px;"><img className="Line_Graph_Graphs_Flag" src={countryFlag} alt="" Style="width:30px;height:30px;border-radius: 20px;padding:0px; "></img> {countryName}</h1>}
             {
                 data_cases?.length > 0 && data_recovered?.length > 0 && data_deaths?.length > 0 && (
                 <Line options = {options} 
@@ -149,35 +149,20 @@ function LineGraph({countryName='all', showDetails='0'}) {
                 }
                 } />)
             }
-            
-            {/* {
-                showDetails==='1' && 
-                <div className="tooltiptext">
-                    <p>Active : {countryDetails.active}</p>
-                    <p>Active Per One Million : {countryDetails.activePerOneMillion}</p>
-                    <p>Cases : {countryDetails.cases}</p>
-                    <p>Cases Per One Million : {countryDetails.casesPerOneMillion}</p>
-                    <p>Continent : {countryDetails.continent}</p>
-                    <p>Country : {countryDetails.country}</p>
-                    <p>Critical : {countryDetails.critical}</p>
-                    <p>Critical Per One Million : {countryDetails.criticalPerOneMillion}</p>
-                    <p>Deaths : {countryDetails.deaths}</p>
-                    <p>Deaths Per One Million : {countryDetails.deathsPerOneMillion}</p>
-                    <p>One Case Per People : {countryDetails.oneCasePerPeople}</p>
-                    <p>One Death Per People : {countryDetails.oneDeathPerPeople}</p>
-                    <p>One Test Per People : {countryDetails.oneTestPerPeople}</p>
-                    <p>Population : {countryDetails.population}</p>
-                    <p>Recovered : {countryDetails.recovered}</p>
-                    <p>Recovered Per One Million : {countryDetails.recoveredPerOneMillion}</p>
-                    <p>Tests : {countryDetails.tests}</p>
-                    <p>Tests Per One Million : {countryDetails.testsPerOneMillion}</p>
-                    <p>Today Cases : {countryDetails.todayCases}</p>
-                    <p>Today Deaths : {countryDetails.todayDeaths}</p>
-                    <p>Today Recovered : {countryDetails.todayRecovered}</p>
-                </div>
-            } */}
-                 
         </div>
+        {
+            showDetails==='1' && 
+            <div className="Line_Graph_Overlay">
+                <p className="Line_Graph_Description">Active : {countryDetails.active}</p>
+                <p className="Line_Graph_Description">Cases : {countryDetails.cases}</p>
+                <p className="Line_Graph_Description">Critical : {countryDetails.critical}</p>
+                <p className="Line_Graph_Description">Tests : {countryDetails.tests}</p>
+                <p className="Line_Graph_Description">Today Cases : {countryDetails.todayCases}</p>
+                <p className="Line_Graph_Description">Today Deaths : {countryDetails.todayDeaths}</p>
+                <p className="Line_Graph_Description">Today Recovered : {countryDetails.todayRecovered}</p>
+            </div>
+        }
+        </>
     )
 }
 
