@@ -1,6 +1,5 @@
 .Line_Graph {
     display: flex;
-    /* flex-direction: column; */
     text-align: center;
     position: relative;
     flex: 1;
@@ -51,7 +50,8 @@
     background:#E6EBFE;
     display: flex;
     border-radius:20px;
-    color: #077AFB;
+    color: white;
+    text-shadow: -1px 1px 0 #000,1px 1px 0 #000,1px -1px 0 #000,-1px -1px 0 #000;
     font-weight: bold;
     margin-top:2vh;
     margin-bottom:2vh;
@@ -87,6 +87,7 @@
 }
 
   .Line_Graph_Description {
+    font-weight: bold;
     align-items: center;
     text-align: center;
     justify-content: center;
